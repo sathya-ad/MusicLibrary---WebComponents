@@ -1,0 +1,307 @@
+
+//display flex mixin
+
+	//Usage definition
+
+	//@include flexbox;
+
+	@mixin flexbox {
+	  display: -webkit-box;
+	  	display: -moz-box;
+	  		display: -ms-flexbox;
+	  			display: -webkit-flex;
+	  				display: flex;
+	}
+
+
+
+//Padding mixin
+
+	//Usage definition;
+
+	//@include padding(top, 0 0 0 0);
+
+	// @mixin padding($top, $right, $bottom, $left) {
+	//   padding-top: $top;
+	//   	padding-right: $right;
+	//   		padding-bottom: $bottom;
+	//   			padding-left: $left;
+	// }
+	@mixin padding($direction, $value) {
+		@if $direction == all {
+		  padding: $value;
+		} 
+		@else {
+		  padding-#{$direction}: $value;
+		}
+	}
+		
+
+
+//Margin mixin
+
+	//Usage definition;
+
+	//@include margin(top, right, bottom, left);
+
+	// @mixin margin($top, $right, $bottom, $left) {
+	//   margin-top: $top;
+	//   	margin-right: $right;
+	//   		margin-bottom: $bottom;
+	//   			margin-left: $left;
+	// }
+	@mixin margin($direction, $value) {
+		@if $direction == all {
+			margin: $value;
+		} 
+		@else {
+			margin-#{$direction}: $value;
+		}
+	}
+
+
+//Font mixin
+
+	//Usage definition;
+
+	//@include font-size(14px);
+
+	@mixin font-size($size) {
+	  font-size: $size;
+	}
+
+
+//Position mixin
+
+	//Usage definition;
+
+	//@include position(absolute, 1px, 1px, 1px, 1px);
+
+	@mixin position($position, $top, $right, $bottom, $left) {
+	  position: $position;
+	  	top: $top;
+	  		right: $right;
+	  			bottom: $bottom;
+	  				left: $left;
+	}
+
+
+
+//boxsizing mixin
+
+	//Usage definition;
+
+	//@include box-sizing(border-box);
+
+	@mixin box-sizing($box-model) {
+	  -webkit-box-sizing: $box-model; // Safari <= 5
+	  	-moz-box-sizing: $box-model; // Firefox <= 19
+	  		box-sizing: $box-model;
+	}
+
+
+// Opacity
+
+    // USAGE:
+
+    // @include opacity(0.8);
+
+    @mixin opacity($opacity) {
+  			opacity: $opacity;
+  				$opacity-ie: $opacity * 100;
+  					filter: alpha(opacity=$opacity-ie); //IE8
+	}
+
+
+// border radius
+
+    // USAGE:
+
+    // @include border-radius(4px);
+
+    @mixin border-radius($radius) {
+      -webkit-border-radius: $radius;
+         -moz-border-radius: $radius;
+          -ms-border-radius: $radius;
+              border-radius: $radius;
+    }
+
+
+// Transition
+
+    // USAGE:
+
+    // @include transition(.3s ease);
+
+	@mixin transition($args...) {
+	  -webkit-transition: $args;
+	  	-moz-transition: $args;
+	  		-ms-transition: $args;
+	  			-o-transition: $args;
+	  				transition: $args;
+	}
+
+// Transform
+
+    // USAGE:
+
+    // @include transform(rotate(deg));
+
+	@mixin transform($transforms) {
+		-moz-transform: $transforms;
+			-o-transform: $transforms;
+				-ms-transform: $transforms;
+					-webkit-transform: $transforms;
+    					transform: $transforms;
+	}
+
+
+// box shadow
+
+    // USAGE:
+
+    // @include box-shadow(0 0 20px 0 rgba(255,255,255,.1));
+
+    @mixin box-shadow($shadows...) {
+      -moz-box-shadow: $shadows;
+      	-webkit-box-shadow: $shadows;
+      		box-shadow: $shadows;
+    }
+
+
+
+// retina image
+
+    // USAGE:
+
+    // @include background-image-retina('/adaptiveyou-signup/images/new-website', resolution, png, 12px, 12px, no-repeat);
+
+    @mixin background-image-retina($file, $resolution, $type, $width, $height, $positionx, $positiony, $repeat) {
+      background: url($file + '.' + $type) $repeat;
+			background-position: $positionx $positiony;
+      -webkit-background-size: $width $height;
+      -moz-background-size: $width $height;
+      -o-background-size: $width $height;
+      background-size: $width $height;
+      @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        	 only screen and (-moz-min-device-pixel-ratio: 2),
+        	 only screen and (-o-min-device-pixel-ratio: 2/1),
+        	 only screen and (min-device-pixel-ratio: 2),
+        	 only screen and (min-resolution: 192dpi),
+        	 only screen and (min-resolution: 2dppx){
+        & {
+          background: url($file + #{$resolution} + $type) $repeat;
+        }
+      }
+    }
+
+
+// word wrap
+
+    // USAGE:
+
+    // @include white-space(pre-wrap);
+
+    @mixin white-space($type) {
+        white-space: $type;       /* css-3 */
+        white-space: -moz-$type;  /* Mozilla, since 1999 */
+        white-space: -$type;      /* Opera 4-6 */
+        white-space: -o-$type;    /* Opera 7 */
+        word-wrap: break-word;     /* Internet Explorer 5.5+ */
+    }
+
+
+// placeholder for input fields & text areas
+
+    // USAGE:
+
+    // @include placeholder;
+
+    @mixin placeholder {
+        &::-webkit-input-placeholder {
+            @content;
+        }
+
+        &:-moz-placeholder { /* Firefox 18- */
+            @content;
+        }
+
+        &::-moz-placeholder {  /* Firefox 19+ */
+            @content;
+        }
+
+        &:-ms-input-placeholder {
+            @content;
+        }
+    }
+
+
+// placeholder for input fields & text areas
+
+
+    @mixin placeholder-focus {
+        &:focus::-webkit-input-placeholder {
+            @content;
+        }
+
+        &:focus:-moz-placeholder { /* Firefox 18- */
+            @content;
+        }
+
+        &:focus::-moz-placeholder {  /* Firefox 19+ */
+            @content;
+        }
+
+        &:focus:-ms-input-placeholder {
+            @content;
+        }
+    }
+
+
+//  Animations
+
+// 	 Usage
+
+	@mixin keyframes($animationName) {
+	    @-webkit-keyframes #{$animationName} {
+	        @content;
+	    }
+	    @-moz-keyframes #{$animationName} {
+	        @content;
+	    }
+	    @-o-keyframes #{$animationName} {
+	        @content;
+	    }
+	    @keyframes #{$animationName} {
+	        @content;
+	    }
+	}
+
+// 	usage
+//	@include animation(10s, 5s, changecolour)
+
+	@mixin animation($animation, $delay, $timing, $iteration) {
+		-webkit-animation-name: $animation;
+		-webkit-animation-delay: $delay;
+		-webkit-transition-timing-function: $timing;
+		-webkit-animation-iteration-count: $iteration;
+		-webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+	
+		-moz-animation-name: $animation;
+		-moz-animation-delay: $delay;
+		-moz-transition-timing-function: $timing;
+		-moz-animation-iteration-count: $iteration;
+		-moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+	
+		-o-animation-name: $animation;
+		-o-animation-delay: $delay;
+		-o-transition-timing-function: $timing;
+		-o-animation-iteration-count: $iteration;
+		-o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+	
+		animation-name: $animation;
+		animation-delay: $delay;
+		transition-timing-function: $timing;
+		animation-iteration-count: $iteration;
+		animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+	}
